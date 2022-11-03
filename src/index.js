@@ -6,8 +6,8 @@ import './styles/index.less';
 import axios from 'axios';
 
 //axios.defaults.baseURL = 'http://localhost:8081';
-axios.defaults.baseURL = '/';
-// axios.defaults.baseURL = 'http://ec2-13-238-161-186.ap-southeast-2.compute.amazonaws.com:8080';
+//axios.defaults.baseURL = '/';
+axios.defaults.baseURL = 'http://ec2-13-238-161-186.ap-southeast-2.compute.amazonaws.com:8080';
 ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

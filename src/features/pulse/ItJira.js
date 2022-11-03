@@ -6,6 +6,8 @@ import * as actions from './redux/actions';
 import {Alert, Spin, Button, message, Card, Breadcrumb, Col, Row, Tabs, Result} from 'antd';
 import axios from "axios";
 import moment from "moment";
+//import Iframe from 'react-iframe'
+
 const { TabPane } = Tabs;
 export class ItJira extends Component {
   constructor(props) {
@@ -91,6 +93,13 @@ export class ItJira extends Component {
           </TabPane>
 
         </Tabs>
+          {/*<Iframe url="http://ec2-3-88-202-139.compute-1.amazonaws.com:8088/superset/dashboard/11/?standalone=true"*/}
+          {/*        width="450px"*/}
+          {/*        height="450px"*/}
+          {/*        id="myId"*/}
+          {/*        className="myClassname"*/}
+          {/*        display="initial"*/}
+          {/*        position="relative"/>*/}
       </div>
     );
   }
