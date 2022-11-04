@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+
 import {Alert, Spin, Button, message, Card, Breadcrumb, Col, Row, Tabs, Result} from 'antd';
 import axios from "axios";
 import moment from "moment";
-//import Iframe from 'react-iframe'
-
 const { TabPane } = Tabs;
-export class ItJira extends Component {
+export class Ortom8Jira extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,21 +23,12 @@ export class ItJira extends Component {
   };
   componentWillMount() {
     this.getTicketLastUpdate();
-
-    // if(localStorage.getItem('userName')==="MST" && localStorage.getItem('password')==="mst@123" ){
-    //   this.props.history.push('/report/it-jira');
-    //
-    // }else {
-    //   this.props.history.push('/login-page');
-    //   localStorage.clear();
-    //   this.setState({loginValidate: false});
-    // }
   }
   getTicketLastUpdate(){
-      const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer "+localStorage.getItem("token")
-      };
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+localStorage.getItem("token")
+    };
     axios.get( `/api/audit/getLastDetails`,{headers})
         .then(res => {
           const allData = res;
@@ -46,8 +36,10 @@ export class ItJira extends Component {
           // console.log("res open ==", allData.data)
           if(res.status=="200"){
             if( allData.data.length>=1){
+              console.log("adit log data=",allData.data)
               this.setState({
-                lastUpdateAllTicket:allData.data[2]
+                lastUpdateAllTicket:allData.data[3]
+
               })
             }
 
@@ -57,11 +49,11 @@ export class ItJira extends Component {
 
   getAllITOpenTicket(){
     this.setState({loading:true})
-      const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer "+localStorage.getItem("token")
-      };
-    axios.get( `/api/it/ticket/open`,{headers})
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer "+localStorage.getItem("token")
+    };
+    axios.get( `/api/ortom8/ticket/open`,{headers})
         .then(res => {
           const allData = res;
 
@@ -79,27 +71,20 @@ export class ItJira extends Component {
   }
   render() {
     return (
-      <div className="pulse-it-jira">
+      <div className="pulse-ortom-8-jira">
         <Tabs defaultActiveKey="1" centered>
-          <TabPane tab="All IT Tickets " key="1">
+          <TabPane tab="Ortom8 - All  Tickets " key="1">
             <Result
-                status="success"
-                title="Successfully Updated all IT jira tickets to Pulse database!"
+               status="success"
+                title="Successfully Updated all Ortom8 jira tickets to Pulse database!"
                 subTitle={"Last updated "+ moment(this.state.lastUpdateAllTicket.jobEnd).format('MMMM Do YYYY, h:mm:ss a')  + " and status is "+ this.state.lastUpdateAllTicket.status }
                 extra={[
-                  <Button type="primary"  loading={this.state.loading} onClick={this.getAllITOpenTicket.bind(this)}>Update IT Tickets</Button>
+                  <Button type="primary"  loading={this.state.loading} onClick={this.getAllITOpenTicket.bind(this)}>Update Ticket</Button>
                 ]}
             />
           </TabPane>
 
         </Tabs>
-          {/*<Iframe url="http://ec2-3-88-202-139.compute-1.amazonaws.com:8088/superset/dashboard/11/?standalone=true"*/}
-          {/*        width="450px"*/}
-          {/*        height="450px"*/}
-          {/*        id="myId"*/}
-          {/*        className="myClassname"*/}
-          {/*        display="initial"*/}
-          {/*        position="relative"/>*/}
       </div>
     );
   }
@@ -122,4 +107,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ItJira);
+)(Ortom8Jira);
